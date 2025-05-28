@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress Dashboard</title>
+  <style>
+  .navbar {
+  background-color: #009797;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+    body {
+      margin-top: 80px;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px;
+      background-image: url(../src/logo.png);
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .widget {
+      perspective: 1000px;
+      width: 250px;
+      height: 180px;
+      margin: 15px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .widget:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      backface-visibility: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+      background: white;
+      text-align: center;
+    }
+
+    .flip-card-front {
+      z-index: 2;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 25px;
+      background: #eee;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 20px 0 0 20px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    .open-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #0072ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body >
+  <div class="navbar">
+    <div ><a class="logo" href="index.html">TARA 2.0</a></div>
+  </div>
+  
+  <!-- Reusable Widget -->
+  <div class="widget">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <h3>M1</h3>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="bar1"></div>
+        </div>
+        <p id="label1">0%</p>
+      </div>
+      <div class="flip-card-back">
+        <p>Description for M1 Module</p>
+        <a href="M1.html" class="open-btn">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repeat the above for other modules -->
+  <div class="widget">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <h3>M2</h3>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="bar2"></div>
+        </div>
+        <p id="label2">0%</p>
+      </div>
+      <div class="flip-card-back">
+        <p>Description for M2 Module</p>
+        <a href="M2.html" class="open-btn">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <h3>M3</h3>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="bar3"></div>
+        </div>
+        <p id="label3">0%</p>
+      </div>
+      <div class="flip-card-back">
+        <p>Description for M3 Module</p>
+        <a href="M3.html" class="open-btn">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add M4 and M5 similarly -->
+
+  <script>
+    function updateProgress(id, labelId, percent) {
+      const bar = document.getElementById(id);
+      const label = document.getElementById(labelId);
+      bar.style.width = percent + '%';
+      label.textContent = percent + '%';
+    }
+
+    // Update progress values
+    updateProgress("bar1", "label1", 100);
+    updateProgress("bar2", "label2", 100);
+    updateProgress("bar3", "label3", 100);
+  </script>
+
+</body>
+</html>

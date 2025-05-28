@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TARA 2.0</title>
+  <style>
+  .navbar {
+  background-color: #009797;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+    body {
+      margin-top: 80px;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      background-image: url(../src/logo.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      
+ 
+    }
+    .table-container {
+  padding: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+thead th {
+  background-color: #009797;
+  color: white;
+}
+
+.group-header {
+  background-color: #007b7b;
+  font-weight: bold;
+  font-size: 16px;
+}
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+input[type="file"] {
+  display: none; /* Hide the default input */
+}
+
+.custom-file-upload {
+  background-color: #009797;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #007777;
+}
+
+#file-name {
+  font-style: italic;
+  font-size: 14px;
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.input-area button {
+  padding: 10px 20px;
+  background-color: #009797;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.input-area button:hover {
+  background-color: #007777;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div ><a class="logo" href="index.html">TARA 2.0</a></div>
+  </div>
+  <div class="input-area">
+    <label for="fileInput" class="custom-file-upload">
+      Choose File
+    </label>
+    <span id="file-name">No file selected</span>
+    <input type="file" id="fileInput" onchange="updateFileName()" />
+    <button onclick="submitFile()">Submit</button>
+  </div>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- Main column groups -->
+          <th colspan="5" class="group-header">Asset Identification</th>
+          <th colspan="2" class="group-header">Cyber Security Property Identification</th>
+          <th colspan="2" class="group-header">Damage Scenario Identification</th>
+        </tr>
+        <tr>
+          <!-- Sub-columns -->
+          <th>Component</th>
+          <th>Function</th>
+          <th>Asset ID</th>
+          <th>Asset List</th>
+          <th>Asset Description</th>
+  
+          <th>Property</th>
+          <th>Applicable</th>
+  
+          <th>ID</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+  </div>
+  <script>
+function updateFileName() {
+  const fileInput = document.getElementById("fileInput");
+  const fileNameDisplay = document.getElementById("file-name");
+  if (fileInput.files.length > 0) {
+    fileNameDisplay.textContent = fileInput.files[0].name;
+  } else {
+    fileNameDisplay.textContent = "No file selected";
+  }
+}
+
+  </script>
+  
+  <script>
+ 
+ 
+  function render(component, func, assetID, assetList, assetDesc,
+                  confidentiality, integrity, availability,
+                  idC, descC, idI, descI, idA, descA) {
+
+    const tbody = document.querySelector("table tbody");
+
+    // Create the first row (Confidentiality)
+    const row1 = document.createElement("tr");
+
+    // Add the asset info only once, spanning 3 rows
+    const assetData = [component, func, assetID, assetList, assetDesc];
+    for (let data of assetData) {
+      const td = document.createElement("td");
+      td.rowSpan = 3;
+      td.textContent = data;
+      row1.appendChild(td);
+    }
+
+    // Confidentiality row
+    row1.appendChild(createCell("Confidentiality"));
+    row1.appendChild(createCell(confidentiality));
+    row1.appendChild(createCell(idC));
+    row1.appendChild(createCell(descC));
+
+    tbody.appendChild(row1);
+
+    // Integrity row
+    const row2 = document.createElement("tr");
+    row2.appendChild(createCell("Integrity"));
+    row2.appendChild(createCell(integrity));
+    row2.appendChild(createCell(idI));
+    row2.appendChild(createCell(descI));
+    tbody.appendChild(row2);
+
+    // Availability row
+    const row3 = document.createElement("tr");
+    row3.appendChild(createCell("Availability"));
+    row3.appendChild(createCell(availability));
+    row3.appendChild(createCell(ida = idA));
+    row3.appendChild(createCell(descA));
+    tbody.appendChild(row3);
+  }
+
+  function createCell(text) {
+    const td = document.createElement("td");
+    td.textContent = text;
+    return td;
+  }
+
+  // Example usage:
+  render(
+    "ECU1", "Brake Control", "001", "ABS, TCS", "Main brake ECU",
+    "Yes", "No", "Yes",
+    "DS001", "Unauthorized firmware access",
+    "DS002", "Manipulated braking logic",
+    "DS003", "Denial of brake control"
+  );
+</script>
+
+
+
+</body>
+</html>
